@@ -1,0 +1,30 @@
+// See README.txt for information and build instructions.
+
+package tutorial;
+
+option java_package = "com.example.tutorial";
+option java_outer_classname = "PhotoProtos";
+
+message Photo {
+  required string name = 1;
+  required int32 id = 2;        // Unique ID number for this photo.
+  optional string url = 3;
+
+  enum ImageType {
+    PHOTO = 0;
+    DRAWING = 1;
+    PAINTING = 2;
+  }
+
+  message Tag {
+    required string tagid = 1;
+    optional ImageType type = 2 [default = DRAWING];
+  }
+
+  repeated Tag tag = 4;
+}
+
+// Our photo gallery
+message PhotoGallery {
+  repeated Photo photos = 1;
+}
