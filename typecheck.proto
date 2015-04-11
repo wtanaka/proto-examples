@@ -1,0 +1,20 @@
+package tutorial;
+
+option java_package = "com.example";
+option java_outer_classname = "TypeCheck";
+
+message Point {
+  required double x = 1;
+  required double y = 2;
+}
+
+message Review {
+  required int32 rating = 1;
+  optional string text = 2;
+}
+
+message Place {
+  required string name = 1;
+  required Point location = 2;
+  optional Review review = 3;
+}

@@ -7,15 +7,20 @@ all: cpp python java
 cpp:    add_person_cpp    list_people_cpp
 java:   add_person_java   list_people_java
 python: add_person_python list_people_python
+python: typecheck_pb2.py
 
 clean:
 	rm -f add_person_cpp list_people_cpp add_person_java list_people_java add_person_python list_people_python
 	rm -f javac_middleman AddPerson*.class ListPeople*.class com/example/tutorial/*.class
-	rm -f protoc_middleman addressbook.pb.cc addressbook.pb.h addressbook_pb2.py com/example/tutorial/AddressBookProtos.java
+	rm -f protoc_middleman addressbook.pb.cc addressbook.pb.h com/example/tutorial/AddressBookProtos.java
 	rm -f *.pyc
+	rm -f *_pb2.py
 	rmdir com/example/tutorial 2>/dev/null || true
 	rmdir com/example 2>/dev/null || true
 	rmdir com 2>/dev/null || true
+
+%_pb2.py: %.proto
+	protoc --python_out=. $^
 
 protoc_middleman: addressbook.proto photo.proto
 	protoc --cpp_out=. --java_out=. --python_out=. $^
